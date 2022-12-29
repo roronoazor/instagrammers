@@ -12,7 +12,7 @@ class User(Base):
     username = Column(String, unique=True)
     email = Column(String, unique=True, nullable=False)
     password = Column(String, nullable=False)
-    follower_count = Column(Integer)
+    follower_count = Column(Integer, default=0)
     bio = Column(String)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 

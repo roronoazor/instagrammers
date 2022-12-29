@@ -13,3 +13,12 @@ class UserProfileIn(pydantic.BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class UserProfileOut(UserProfileIn):
+    username: str | None = None
+
+
+class UserTokenOut(pydantic.BaseModel):
+    token: str
+    user: UserProfileOut

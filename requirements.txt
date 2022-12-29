@@ -3,5 +3,6 @@ fastapi==0.88.0
 passlib[bcrypt]==1.7.4
 psycopg2-binary==2.9.5
 pydantic[email]==1.10.2
+python-jose[cryptography]==3.3.0
 sqlalchemy==1.4.45
 uvicorn[standard]==0.20.0
