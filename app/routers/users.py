@@ -1,5 +1,6 @@
 from fastapi import Depends, HTTPException, status
 from fastapi.routing import APIRouter
+from fastapi_pagination import Page, add_pagination, paginate
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import Session
 
@@ -36,7 +37,7 @@ async def register_user(
 @router.get(
     "/search",
     status_code=status.HTTP_200_OK,
-    response_model=list[user_schema.UserProfileOut],
+    response_model=Page[user_schema.UserProfileOut],
 )
 async def search_users(
     text: str = None,
@@ -45,7 +46,7 @@ async def search_users(
     db: Session = Depends(get_db),
 ):
     users = user_service.list_users(db, text, min_followers, max_followers)
-    return users
+    return paginate(users)
 
 
 @router.put(
@@ -65,3 +66,6 @@ async def update_user(
             status_code=status.HTTP_409_CONFLICT,
             detail="Username exists already",
         )
+
+
+add_pagination(router)
