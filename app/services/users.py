@@ -32,7 +32,7 @@ def get_user_or_none(db: Session, email: str) -> User | None:
 
 def create_user(db: Session, user_in: UserCreate):
     user = User(email=user_in.email.lower())
-    # TODO: add password hashing
+    user.make_password(user_in.password.get_secret_value())
 
     db.add(user)
     db.commit()

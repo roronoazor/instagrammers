@@ -2,6 +2,7 @@ from sqlalchemy import Column, DateTime, Integer, String
 from sqlalchemy.sql import func
 
 from app.database import Base
+from app.utils.users import hash_password, verify_password
 
 
 class User(Base):
@@ -14,3 +15,9 @@ class User(Base):
     follower_count = Column(Integer)
     bio = Column(String)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
+
+    def make_password(self, password: str):
+        self.password = hash_password(password)
+
+    def is_password(self, password: str):
+        return verify_password(password, self.password)
