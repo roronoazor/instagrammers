@@ -1,3 +1,5 @@
+from typing import Optional
+
 from jose import JWTError, jwt
 
 from app.settings import settings
@@ -10,7 +12,7 @@ def encode_token(data: dict):
     return jwt.encode(data, SECRET_KEY, algorithm=ALGO)
 
 
-def decode_token(token: str) -> dict | None:
+def decode_token(token: str) -> Optional[dict]:
     try:
         payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGO])
         return payload

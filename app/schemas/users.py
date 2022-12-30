@@ -1,3 +1,5 @@
+from typing import Optional
+
 import pydantic
 
 
@@ -9,14 +11,14 @@ class UserCreate(pydantic.BaseModel):
 class UserProfileIn(pydantic.BaseModel):
     username: str
     follower_count: int
-    bio: str | None = None
+    bio: Optional[str] = None
 
     class Config:
         orm_mode = True
 
 
 class UserProfileOut(UserProfileIn):
-    username: str | None = None
+    username: Optional[str] = None
 
 
 class UserTokenOut(pydantic.BaseModel):

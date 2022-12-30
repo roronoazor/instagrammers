@@ -1,3 +1,5 @@
+from typing import Optional
+
 from sqlalchemy.orm import Session
 from sqlalchemy.sql import or_
 
@@ -26,7 +28,7 @@ def list_users(
     return query.order_by(User.created_at.asc()).all()
 
 
-def get_user_or_none(db: Session, email: str) -> User | None:
+def get_user_or_none(db: Session, email: str) -> Optional[User]:
     return db.query(User).filter(User.email == email.lower()).first()
 
 
